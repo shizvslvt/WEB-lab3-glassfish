@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.RequestDispatcher;
 import lab3.weblab3glassfish.logic.CalcFunction;
+import lab3.weblab3glassfish.model.Results;
 
 @WebServlet(name = "calcServlet", value = "/calc-servlet")
 public class CalcServlet extends HttpServlet {
@@ -17,10 +18,6 @@ public class CalcServlet extends HttpServlet {
         double step = Double.parseDouble(request.getParameter("step"));
         CalcFunction cf = new CalcFunction(start, end, step);
 
-        request.setAttribute("start", start);
-        request.setAttribute("end", end);
-        request.setAttribute("step", step);
-
         //6
         int maxI = cf.getMaxI();
         int minI = cf.getMinI();
@@ -28,19 +25,13 @@ public class CalcServlet extends HttpServlet {
         double maxY = cf.getY(maxI);
         double minX = cf.getX(minI);
         double minY = cf.getY(minI);
-        request.setAttribute("maxI", maxI);
-        request.setAttribute("minI", minI);
-        request.setAttribute("maxX", maxX);
-        request.setAttribute("maxY", maxY);
-        request.setAttribute("minX", minX);
-        request.setAttribute("minY", minY);
-
 
         //7
         double sum = cf.getSum();
         double average = cf.getAverage();
-        request.setAttribute("sum", sum);
-        request.setAttribute("average", average);
+
+        Results results = new Results(start, end, step, maxI, minI, maxX, maxY, minX, minY, sum, average);
+        request.setAttribute("results", results);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("/results.jsp");
         try {

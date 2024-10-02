@@ -2,6 +2,7 @@ package lab3.weblab3glassfish.logic;
 
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class CalcFunctionTest {
@@ -10,15 +11,19 @@ public class CalcFunctionTest {
     double step = 0.005;
     private static final double a = 20.3;
     public static double eps = 1e-6;
-    CalcFunction cf = new CalcFunction(start,end,step);
+    CalcFunction cf;
 
+    @BeforeEach
+    void setUp() {
+        cf = new CalcFunction(start,end,step);
+    }
 
     //2.1
     @Test
     public void testF1() {
         double x = 0.5;
         double y = Math.sin(Math.sqrt(a * x));
-        double fx = CalcFunction.f(x);
+        double fx = cf.f(x);
         Assertions.assertEquals(y*y, fx, eps);
         Assertions.assertEquals(0.00196243, fx, eps);
     }
@@ -26,7 +31,7 @@ public class CalcFunctionTest {
     public void testF2() {
         double x = 1.2;
         double y = Math.sin(Math.sqrt(a * x));
-        double fx = CalcFunction.f(x);
+        double fx = cf.f(x);
         Assertions.assertEquals(y*y, fx, eps);
         Assertions.assertEquals(0.951005, fx, eps);
     }
@@ -34,7 +39,7 @@ public class CalcFunctionTest {
     public void testF3() {
         double x = 2.0;
         double y = Math.log10(x + 1);
-        double fx = CalcFunction.f(x);
+        double fx = cf.f(x);
         Assertions.assertEquals(y, fx, eps);
         Assertions.assertEquals(0.477121255, fx, eps);
     }
@@ -45,11 +50,11 @@ public class CalcFunctionTest {
         double start = 1;
         double end = 2;
         double step = 0.25;
-        Assertions.assertEquals(5, CalcFunction.countStep(start, end, step));
+        Assertions.assertEquals(5, cf.countStep(start, end, step));
     }
     @Test
     void testCountStep2() {
-        Assertions.assertEquals(301, CalcFunction.countStep(start, end, step));
+        Assertions.assertEquals(301, cf.countStep(start, end, step));
     }
 
 

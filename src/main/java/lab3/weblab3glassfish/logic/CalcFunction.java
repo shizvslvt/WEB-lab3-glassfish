@@ -1,5 +1,7 @@
 package lab3.weblab3glassfish.logic;
 
+import java.util.Arrays;
+
 public class CalcFunction {
     private static double a = 20.3;
 
@@ -8,7 +10,7 @@ public class CalcFunction {
     }
 
     //2
-    public static double f(double x) {
+    public  double f(double x) {
         if (x > 1.2 + 1e-7) return Math.log10(x + 1);
         else {
             double sin = Math.sin(Math.sqrt(a * x));
@@ -17,7 +19,7 @@ public class CalcFunction {
     }
 
     //3
-    public static double countStep(double start, double end, double step) {
+    public  double countStep(double start, double end, double step) {
         if (start==end) return 0;
         return Math.round((end - start) / step + 1);
     }
@@ -61,10 +63,7 @@ public class CalcFunction {
     }
 
     public double getSum() {
-        double sum = 0;
-        for (int i = 0; i < yValues.length; i++) {
-            sum += yValues[i];
-        }
+        double sum = Arrays.stream(yValues).sum();
         return Double.parseDouble(String.format("%.9f", sum));
     }
     public double getAverage() {
